@@ -1,0 +1,2 @@
+## Very ugly implemntation of a bad wordle solver
+chooses guess based on average number of words left, the guess with the most information. The word list is ordered by first legitimate guesses and then possible answers so that if a word that is only a legitimate guess and possible word is chosen over a solely legitimate guess. It currently checks all permutations of responses and not all real permutations.

@@ -189,7 +189,7 @@ public class App {
         }
         for (int i : green.keySet()) {
             char k = green.get(i);
-            words.removeIf( (s1) -> (s1.charAt(i) == k));
+            words.removeIf( (s1) -> (s1.charAt(i) != k));
         }
         
         
@@ -198,6 +198,7 @@ public class App {
     }
     private static char[][] wordCheck(String correctword, String s2){
         char[][] temp = new char[2][5];
+        ArrayList<Integer> alreadychecked = new ArrayList<>();
         for(int i = 0; i < 5; i++){ // SHOULD ADD FUNCTIONALITY FOR IF OCURS ONLY ONCE ONLY ONE GREEN SHOULD APEAR
             temp[0][i] = s2.charAt(i);
             if(s2.charAt(i) == correctword.charAt(i)){
@@ -205,8 +206,12 @@ public class App {
             } else {
                 temp[1][i] = (char) 1; // grå
                 for(int k = 0; k < 5; k++){
+
                     if(s2.charAt(i) == correctword.charAt(k)){
-                        temp[1][i] = (char) 2; // blå
+                        if(!alreadychecked.contains(k)){
+                            temp[1][i] = (char) 2; // blå
+                            alreadychecked.add(k); 
+                        }
                     }
                 }
             }

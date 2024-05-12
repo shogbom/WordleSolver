@@ -63,7 +63,7 @@ public class App {
                 }
             }
             avg = avg / 243;
-            if(avg > best){
+            if(avg < best){
                 index = i;
                 best = avg;
             }
@@ -72,6 +72,7 @@ public class App {
         print(((System.nanoTime() - startTime) / 1000000000.0) + "s");
         response = wordCheck(randWord, legitGuess[index]);
         words = remainingWords(response, words);
+        //legitGuess = remainingWords(response, legitGuess);
         print(charArrayToString(response));
         avg = 0;
         best = 0;
@@ -86,8 +87,8 @@ public class App {
                                 response[1][0] = (char) a;
                                 response[1][1] = (char) b;
                                 response[1][2] = (char) c; // not pretty
-                                response[1][3] = (char) d;
-                                response[1][4] = (char) f;
+                                response[1][3] = (char) d; // doesnt account for impossible permutations. :(
+                                response[1][4] = (char) f; // but accounting for only possible permutations would be very slow.
                                 avg += nbrBadWords(response, words);
                             }
                         }
@@ -95,7 +96,7 @@ public class App {
                 }
             }
             avg = avg / 243;
-            if(avg > best){
+            if(avg < best){
                 index = i;
                 best = avg;
             }
@@ -105,10 +106,10 @@ public class App {
         response = wordCheck(randWord, legitGuess[index]);
         words = remainingWords(response, words);
         print(charArrayToString(response));
+        //legitGuess = remainingWords(response, legitGuess);
 
 
     }
-
     private static int nbrBadWords(char[][] resp, String[] word){
         // one for remebering all green chars
         // one for remebering all blue chars
@@ -193,7 +194,7 @@ public class App {
         }
         
         
-        return words.toArray(new String[2]); // this is an insane hack, why the fuck is this the defualt way to do it??????
+        return words.toArray(new String[words.size()]); // this is an insane hack, why the fuck is this the defualt way to do it??????
         //return (String[]) Word.toArray();    // this does not work fucking java
     }
     private static char[][] wordCheck(String correctword, String s2){
